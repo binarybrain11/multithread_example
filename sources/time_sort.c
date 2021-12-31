@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <pthread.h>
 #include "mergesort.h"
 
 #define PRINT_LIST 0
@@ -53,8 +54,8 @@ int main(){
 
     printf("Sorting list with simple multithreaded mergesort...\n");
     int thread_count = 1;
-    pthread_mutex_t thread_count_mutex;
-    pthread_mutex_init(&thread_count_mutex, NULL);
+    pthread_mutex_t thread_count_mutex = PTHREAD_MUTEX_INITIALIZER;
+    /* pthread_mutex_init(&thread_count_mutex, NULL); */
     struct thread_args args = {list, 0, num_items - 1, is_greater, sizeof(int), &thread_count, &thread_count_mutex};
     start_t = clock();
     sorted = simple_multithread_mergesort(&args);
